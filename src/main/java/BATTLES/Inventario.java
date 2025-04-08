@@ -14,8 +14,7 @@ public class Inventario {
             System.out.println("Inventário cheio! Não foi possível adicionar " + item.getNome());
             return false;
         }
-        
-        // Verifica se o item já existe no inventário para incrementar a quantidade
+
         for (int i = 0; i < itens.tamanho(); i++) {
             Item itemExistente = itens.get(i);
             if (itemExistente.getId() == item.getId()) {
@@ -23,8 +22,7 @@ public class Inventario {
                 return true;
             }
         }
-        
-        // Se não existir, adiciona novo item
+
         itens.adicionar(item);
         return true;
     }
@@ -68,8 +66,7 @@ public class Inventario {
                              item.getDescricao());
         }
     }
-    
-    // Getters
+
     public ListaEncadeada<Item> getItens() { return itens; }
     public int getCapacidadeMaxima() { return capacidadeMaxima; }
 }

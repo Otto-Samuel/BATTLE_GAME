@@ -16,17 +16,15 @@ public abstract class Entidade {
         this.manaMaxima = manaMaxima;
         this.manaAtual = manaMaxima;
     }
-    
-    // Adicione este novo método
+
     public void subirNivel() {
         nivel++;
-        vidaMaxima += 5;  // Valor base para todas as entidades
-        manaMaxima += 2;  // Valor base para todas as entidades
+        vidaMaxima += 5;  
+        manaMaxima += 2;  
         vidaAtual = vidaMaxima;
         manaAtual = manaMaxima;
     }
-    
-    // Outros métodos da Entidade...
+
     public abstract void atacar(Entidade alvo);
     
     public void receberDano(int dano) {
@@ -42,8 +40,7 @@ public abstract class Entidade {
     public boolean estaVivo() {
         return vidaAtual > 0;
     }
-    
-    // Getters e Setters...
+
     public String getNome() { return nome; }
     public int getNivel() { return nivel; }
     public int getVidaMaxima() { return vidaMaxima; }

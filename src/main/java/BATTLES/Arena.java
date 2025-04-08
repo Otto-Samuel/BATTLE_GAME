@@ -2,7 +2,7 @@ package BATTLES;
 
 import java.util.Random;
 import java.util.Scanner;
-//import java.util.NoSuchElementException;
+import java.util.InputMismatchException;
 
 public class Arena {
     private FilaEncadeada<Entidade> ordemTurnos;
@@ -10,6 +10,7 @@ public class Arena {
     private ListaEncadeada<Entidade> participantes;
     private int turnoAtual;
     private boolean emAndamento;
+    private Scanner scanner;
     
     public Arena() {
         this.ordemTurnos = new FilaEncadeada<>();
@@ -17,6 +18,7 @@ public class Arena {
         this.participantes = new ListaEncadeada<>();
         this.turnoAtual = 0;
         this.emAndamento = false;
+        this.scanner = new Scanner(System.in);
     }
     
     public void iniciarBatalha(ListaEncadeada<Entidade> participantes) {
@@ -30,7 +32,6 @@ public class Arena {
             }
         }
         
-        // Ordem aleatória para mais dinamismo
         embaralharOrdemTurnos();
         
         turnoAtual = 1;
@@ -39,14 +40,12 @@ public class Arena {
     }
     
     private void embaralharOrdemTurnos() {
-        // Converte a fila para array para embaralhar
         Entidade[] array = new Entidade[ordemTurnos.size];
         int index = 0;
         while (!ordemTurnos.isEmpty()) {
             array[index++] = ordemTurnos.dequeue();
         }
         
-        // Embaralha o array
         Random rand = new Random();
         for (int i = array.length - 1; i > 0; i--) {
             int j = rand.nextInt(i + 1);
@@ -55,7 +54,6 @@ public class Arena {
             array[j] = temp;
         }
         
-        // Recria a fila com a ordem embaralhada
         for (Entidade e : array) {
             ordemTurnos.enqueue(e);
         }
@@ -68,7 +66,6 @@ public class Arena {
         
         System.out.println("\n=== Turno " + turnoAtual + " ===");
         
-        // Pega o próximo da fila
         Entidade atuante = ordemTurnos.dequeue();
         
         if (!atuante.estaVivo()) {
@@ -79,15 +76,12 @@ public class Arena {
         System.out.println("Vez de " + atuante.getNome());
         System.out.println("HP: " + atuante.getVidaAtual() + "/" + atuante.getVidaMaxima());
         
-        // Se for um Personagem (jogador), mostra menu de ações
         if (atuante instanceof Personagem) {
             executarTurnoJogador((Personagem) atuante);
         } else {
-            // Se for monstro, ação automática
             executarTurnoMonstro(atuante);
         }
         
-        // Verifica se a batalha terminou
         if (verificarVencedor()) {
             emAndamento = false;
             anunciarVencedor();
@@ -97,136 +91,142 @@ public class Arena {
     }
     
     private void executarTurnoJogador(Personagem jogador) {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("\nEscolha sua ação:");
-        System.out.println("1. Atacar");
-        System.out.println("2. Usar habilidade");
-        System.out.println("3. Usar item");
-        System.out.println("4. Defender");
-        System.out.print("Opção: ");
-        
-        int opcao = scanner.nextInt();
-        scanner.nextLine(); // Limpar buffer
-        
-        Entidade alvo = escolherAlvo(jogador);
-        
-        switch (opcao) {
-            case 1:
-                jogador.atacar(alvo);
-                System.out.println(jogador.getNome() + " atacou " + alvo.getNome() + "!");
-                break;
-                
-            case 2:
-                if (jogador.getHabilidades().tamanho() > 0) {
-                    System.out.println("\nHabilidades disponíveis:");
-                    for (int i = 0; i < jogador.getHabilidades().tamanho(); i++) {
-                        Habilidade h = jogador.getHabilidades().get(i);
-                        System.out.println((i+1) + ". " + h.getNome() + 
-                                         " (Dano: " + h.getDano() + 
-                                         ", Custo: " + h.getCustoMana() + ")");
-                    }
-                    System.out.print("Escolha uma habilidade: ");
-                    int habilidadeEscolhida = scanner.nextInt() - 1;
-                    scanner.nextLine();
+        try {
+            System.out.println("\nEscolha sua ação:");
+            System.out.println("1. Atacar");
+            System.out.println("2. Usar habilidade");
+            System.out.println("3. Usar item");
+            System.out.println("4. Defender");
+            System.out.print("Opção: ");
+            
+            int opcao = lerOpcao(1, 4);
+            Entidade alvo = escolherAlvo(jogador);
+            
+            switch (opcao) {
+                case 1:
+                    jogador.atacar(alvo);
+                    System.out.println(jogador.getNome() + " atacou " + alvo.getNome() + "!");
+                    break;
                     
-                    if (habilidadeEscolhida >= 0 && habilidadeEscolhida < jogador.getHabilidades().tamanho()) {
-                        Habilidade h = jogador.getHabilidades().get(habilidadeEscolhida);
-                        jogador.usarHabilidade(h, alvo);
-                        System.out.println(jogador.getNome() + " usou " + h.getNome() + 
-                                         " em " + alvo.getNome() + "!");
-                    }
-                } else {
-                    System.out.println("Você não tem habilidades disponíveis!");
-                }
-                break;
-                
-            case 3:
-                // Implementar uso de itens
-                System.out.println("Itens ainda não implementados!");
-                break;
-                
-            case 4:
-                // Implementar defesa
-                System.out.println(jogador.getNome() + " está se defendendo!");
-                jogador.curar(5); // Defesa simples cura um pouco
-                break;
-                
-            default:
-                System.out.println("Ação inválida! Perdeu o turno.");
+                case 2:
+                    usarHabilidade(jogador, alvo);
+                    break;
+                    
+                case 3:
+                    System.out.println("Itens ainda não implementados!");
+                    break;
+                    
+                case 4:
+                    System.out.println(jogador.getNome() + " está se defendendo!");
+                    jogador.curar(5);
+                    break;
+            }
+            
+            verificarDerrota(jogador, alvo);
+            
+        } catch (InputMismatchException e) {
+            System.out.println("Entrada inválida! Perdeu o turno.");
+            scanner.nextLine(); // Limpar buffer
         }
-        
-        // Verifica se o alvo foi derrotado
+    }
+    
+    private int lerOpcao(int min, int max) {
+        while (true) {
+            try {
+                int opcao = scanner.nextInt();
+                scanner.nextLine();
+                if (opcao >= min && opcao <= max) {
+                    return opcao;
+                }
+                System.out.print("Opção inválida. Tente novamente: ");
+            } catch (InputMismatchException e) {
+                System.out.print("Por favor, digite um número: ");
+                scanner.nextLine();
+            }
+        }
+    }
+    
+    private void usarHabilidade(Personagem jogador, Entidade alvo) {
+        if (jogador.getHabilidades().tamanho() > 0) {
+            System.out.println("\nHabilidades disponíveis:");
+            for (int i = 0; i < jogador.getHabilidades().tamanho(); i++) {
+                Habilidade h = jogador.getHabilidades().get(i);
+                System.out.println((i+1) + ". " + h.getNome() + 
+                                 " (Dano: " + h.getDano() + 
+                                 ", Custo: " + h.getCustoMana() + ")");
+            }
+            System.out.print("Escolha uma habilidade: ");
+            int habilidadeEscolhida = lerOpcao(1, jogador.getHabilidades().tamanho()) - 1;
+            
+            Habilidade h = jogador.getHabilidades().get(habilidadeEscolhida);
+            jogador.usarHabilidade(h, alvo);
+            System.out.println(jogador.getNome() + " usou " + h.getNome() + 
+                             " em " + alvo.getNome() + "!");
+        } else {
+            System.out.println("Você não tem habilidades disponíveis!");
+        }
+    }
+    
+    private void verificarDerrota(Entidade atuante, Entidade alvo) {
         if (!alvo.estaVivo()) {
             System.out.println(alvo.getNome() + " foi derrotado!");
             eliminados.push(alvo);
             
-            // Se o alvo era um monstro, concede experiência
-            if (alvo instanceof Monstro) {
+            if (alvo instanceof Monstro && atuante instanceof Personagem) {
                 int exp = ((Monstro)alvo).getExperienciaConcedida();
-                jogador.ganharExperiencia(exp);
-                System.out.println(jogador.getNome() + " ganhou " + exp + " pontos de experiência!");
+                ((Personagem)atuante).ganharExperiencia(exp);
+                System.out.println(atuante.getNome() + " ganhou " + exp + " pontos de experiência!");
             }
         }
         
-        // Se o jogador ainda está vivo, volta para o final da fila
-        if (jogador.estaVivo()) {
-            ordemTurnos.enqueue(jogador);
+        if (atuante.estaVivo()) {
+            ordemTurnos.enqueue(atuante);
         } else {
-            System.out.println(jogador.getNome() + " foi derrotado!");
-            eliminados.push(jogador);
+            System.out.println(atuante.getNome() + " foi derrotado!");
+            eliminados.push(atuante);
         }
     }
+    
     private void executarTurnoMonstro(Entidade monstro) {
         Entidade alvo = escolherAlvo(monstro);
         monstro.atacar(alvo);
         System.out.println(monstro.getNome() + " atacou " + alvo.getNome() + "!");
         
-        // Verifica se o alvo foi derrotado
-        if (!alvo.estaVivo()) {
-            System.out.println(alvo.getNome() + " foi derrotado!");
-            eliminados.push(alvo);
-        }
-        
-        // Se o monstro ainda está vivo, volta para o final da fila
-        if (monstro.estaVivo()) {
-            ordemTurnos.enqueue(monstro);
-        } else {
-            System.out.println(monstro.getNome() + " foi derrotado!");
-            eliminados.push(monstro);
-        }
+        verificarDerrota(monstro, alvo);
     }
     
     private Entidade escolherAlvo(Entidade atuante) {
-        // Implementação melhorada para escolha de alvos
-        
-        // Se for um monstro, escolhe aleatoriamente um jogador vivo
         if (atuante instanceof Monstro) {
-            ListaEncadeada<Entidade> alvosPossiveis = new ListaEncadeada<>();
-            for (int i = 0; i < participantes.tamanho(); i++) {
-                Entidade e = participantes.get(i);
-                if (e.estaVivo() && e != atuante && e instanceof Personagem) {
-                    alvosPossiveis.adicionar(e);
-                }
+            return escolherAlvoMonstro(atuante);
+        }
+        return escolherAlvoJogador(atuante);
+    }
+    
+    private Entidade escolherAlvoMonstro(Entidade monstro) {
+        ListaEncadeada<Entidade> alvosPossiveis = new ListaEncadeada<>();
+        for (int i = 0; i < participantes.tamanho(); i++) {
+            Entidade e = participantes.get(i);
+            if (e.estaVivo() && e != monstro && e instanceof Personagem) {
+                alvosPossiveis.adicionar(e);
             }
-            
-            if (alvosPossiveis.tamanho() == 0) {
-                // Caso não haja alvos (não deveria acontecer)
-                return participantes.get(0);
-            }
-            
-            Random rand = new Random();
-            return alvosPossiveis.get(rand.nextInt(alvosPossiveis.tamanho()));
         }
         
-        // Se for um jogador, mostra menu para escolher alvo
+        if (alvosPossiveis.tamanho() == 0) {
+            return participantes.get(0);
+        }
+        
+        Random rand = new Random();
+        return alvosPossiveis.get(rand.nextInt(alvosPossiveis.tamanho()));
+    }
+    
+    private Entidade escolherAlvoJogador(Entidade jogador) {
         System.out.println("\nEscolha seu alvo:");
         int index = 1;
         ListaEncadeada<Entidade> alvosDisponiveis = new ListaEncadeada<>();
         
         for (int i = 0; i < participantes.tamanho(); i++) {
             Entidade e = participantes.get(i);
-            if (e.estaVivo() && e != atuante) {
+            if (e.estaVivo() && e != jogador) {
                 System.out.println(index + ". " + e.getNome() + 
                                  " (HP: " + e.getVidaAtual() + "/" + e.getVidaMaxima() + ")");
                 alvosDisponiveis.adicionar(e);
@@ -234,17 +234,8 @@ public class Arena {
             }
         }
         
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Opção: ");
-        int escolha = scanner.nextInt() - 1;
-        scanner.nextLine();
-        
-        if (escolha >= 0 && escolha < alvosDisponiveis.tamanho()) {
-            return alvosDisponiveis.get(escolha);
-        } else {
-            System.out.println("Alvo inválido! Atacando o primeiro alvo disponível.");
-            return alvosDisponiveis.get(0);
-        }
+        int escolha = lerOpcao(1, alvosDisponiveis.tamanho()) - 1;
+        return alvosDisponiveis.get(escolha);
     }
     
     public boolean verificarVencedor() {
@@ -260,12 +251,10 @@ public class Arena {
         }
         
         if (vivos == 1) {
-            // Verifica se o vencedor é um jogador
             if (ultimoVivo instanceof Personagem) {
-                Personagem vencedor = (Personagem) ultimoVivo;
+                Personagem vencedor = (Personagem)ultimoVivo;
                 System.out.println("\nParabéns! " + vencedor.getNome() + " venceu a batalha!");
                 
-                // Recompensas
                 int recompensa = 50 * participantes.tamanho();
                 vencedor.getJogador().adicionarMoedas(recompensa);
                 System.out.println("Você ganhou " + recompensa + " moedas!");
@@ -280,28 +269,12 @@ public class Arena {
     }
     
     public void anunciarVencedor() {
-        Entidade vencedor = null;
-        
-        for (int i = 0; i < participantes.tamanho(); i++) {
-            Entidade e = participantes.get(i);
-            if (e.estaVivo()) {
-                vencedor = e;
-                break;
-            }
-        }
-        
-        if (vencedor != null) {
-            System.out.println("\n=== " + vencedor.getNome() + " venceu a batalha! ===");
-            eliminados.push(vencedor); // O vencedor é o último na pilha
-        }
-        
         exibirRankingFinal();
     }
     
     public void exibirRankingFinal() {
         System.out.println("\n=== Ranking Final ===");
         
-        // Cria uma cópia da pilha para não alterar a original
         PilhaEncadeada<Entidade> copia = new PilhaEncadeada<>();
         ListaEncadeada<Entidade> ranking = new ListaEncadeada<>();
         
@@ -311,12 +284,10 @@ public class Arena {
             copia.push(e);
         }
         
-        // Restaura a pilha original
         while (!copia.isEmpty()) {
             eliminados.push(copia.pop());
         }
         
-        // Exibe do primeiro eliminado ao vencedor
         for (int i = ranking.tamanho() - 1; i >= 0; i--) {
             Entidade e = ranking.get(i);
             String status = e.estaVivo() ? "Vencedor" : "Derrotado";
@@ -325,11 +296,16 @@ public class Arena {
         }
     }
     
+    public void finalizar() {
+        if (scanner != null) {
+            scanner.close();
+        }
+    }
+    
     public boolean isEmAndamento() {
         return emAndamento;
     }
     
-    // Métodos adicionais para melhor controle
     public void pausarBatalha() {
         emAndamento = false;
     }

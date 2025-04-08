@@ -6,7 +6,7 @@ public class Habilidade {
     private String descricao;
     private int custoMana;
     private int dano;
-    private int tipo; // 1 = ofensiva, 2 = cura, 3 = buff, etc.
+    private int tipo;
     
     public Habilidade(int id, String nome, String descricao, int custoMana, int dano, int tipo) {
         this.id = id;
@@ -22,16 +22,15 @@ public class Habilidade {
             usuario.setManaAtual(usuario.getManaAtual() - custoMana);
             
             switch (tipo) {
-                case 1: // Ofensiva
+                case 1:
                     alvo.receberDano(dano);
                     System.out.println(usuario.getNome() + " usou " + nome + " em " + alvo.getNome() + " causando " + dano + " de dano!");
                     break;
-                case 2: // Cura
+                case 2:
                     alvo.curar(dano);
                     System.out.println(usuario.getNome() + " usou " + nome + " em " + alvo.getNome() + " curando " + dano + " de HP!");
                     break;
-                case 3: // Buff
-                    // Implementar lógica de buff
+                case 3:
                     System.out.println(usuario.getNome() + " usou " + nome + " em " + alvo.getNome() + " para aumentar seus atributos!");
                     break;
                 default:
@@ -42,7 +41,6 @@ public class Habilidade {
         }
     }
     
-    // Getters e Setters
     public int getId() { return id; }
     public String getNome() { return nome; }
     public String getDescricao() { return descricao; }

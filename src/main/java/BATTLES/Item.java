@@ -41,8 +41,7 @@ public class Item {
             System.out.println("Não há mais " + nome + " no inventário!");
         }
     }
-    
-    // Getters e Setters
+
     public int getId() { return id; }
     public String getNome() { return nome; }
     public String getDescricao() { return descricao; }

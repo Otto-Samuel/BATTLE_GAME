@@ -13,16 +13,14 @@ public class Jogador {
         this.id = UUID.randomUUID().toString();
         this.nome = nome;
         this.senha = senha;
-        this.saldoMoedas = 100; // Saldo inicial
+        this.saldoMoedas = 100;
         this.personagens = new ListaEncadeada<>();
     }
 
-    // Métodos de autenticação
     public boolean autenticar(String senha) {
         return this.senha.equals(senha);
     }
 
-    // Gerenciamento de personagens
     public void criarPersonagem(String nome, int vidaMaxima, int manaMaxima) {
         Personagem novoPersonagem = new Personagem(nome, 1, vidaMaxima, manaMaxima, this);
         personagens.adicionar(novoPersonagem);
@@ -41,7 +39,6 @@ public class Jogador {
         }
     }
 
-    // Sistema de moedas e recompensas
     public void adicionarMoedas(int quantidade) {
         if (quantidade > 0) {
             saldoMoedas += quantidade;
@@ -59,7 +56,6 @@ public class Jogador {
         return false;
     }
 
-    // Métodos de acesso
     public String getId() {
         return id;
     }
@@ -84,7 +80,6 @@ public class Jogador {
         this.personagemAtual = personagemAtual;
     }
 
-    // Método para exibir informações do jogador
     public void exibirInfo() {
         System.out.println("\n=== Informações do Jogador ===");
         System.out.println("Nome: " + nome);
@@ -99,7 +94,6 @@ public class Jogador {
         }
     }
 
-    // Método para listar todos os personagens
     public void listarPersonagens() {
         if (personagens.tamanho() == 0) {
             System.out.println("Nenhum personagem criado ainda!");
