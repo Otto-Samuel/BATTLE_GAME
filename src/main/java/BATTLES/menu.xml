@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battles.controllers.MenuController" spacing="20" alignment="CENTER">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <Label fx:id="lblBoasVindas" style="-fx-font-size: 20px;"/>
+    
+    <VBox spacing="10" alignment="CENTER">
+        <Button fx:id="btnJogar" text="Jogar" prefWidth="200"/>
+        <Button fx:id="btnPersonagens" text="Personagens" prefWidth="200"/>
+        <Button fx:id="btnLoja" text="Loja" prefWidth="200"/>
+        <Button fx:id="btnSair" text="Sair" prefWidth="200"/>
+    </VBox>
+</VBox>

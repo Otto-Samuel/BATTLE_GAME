@@ -4,8 +4,8 @@ public class Item {
     private int id;
     private String nome;
     private String descricao;
-    private int tipo; // 1 = consumível, 2 = equipamento, 3 = chave, etc.
-    private int efeito; // valor do efeito (cura, dano, etc.)
+    private int tipo;
+    private int efeito;
     private int quantidade;
     
     public Item(int id, String nome, String descricao, int tipo, int efeito, int quantidade) {
@@ -22,15 +22,14 @@ public class Item {
             quantidade--;
             
             switch (tipo) {
-                case 1: // Consumível (poção de cura)
+                case 1:
                     alvo.curar(efeito);
                     System.out.println(usuario.getNome() + " usou " + nome + " em " + alvo.getNome() + " curando " + efeito + " de HP!");
                     break;
-                case 2: // Equipamento
-                    // Lógica de equipar
+                case 2:
                     System.out.println(usuario.getNome() + " equipou " + nome + "!");
                     break;
-                case 3: // Ofensivo (bomba, etc.)
+                case 3:
                     alvo.receberDano(efeito);
                     System.out.println(usuario.getNome() + " usou " + nome + " em " + alvo.getNome() + " causando " + efeito + " de dano!");
                     break;
