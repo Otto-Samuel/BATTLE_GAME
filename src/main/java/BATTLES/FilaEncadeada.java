@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 public class FilaEncadeada<T> {
     private Node<T> front;
     private Node<T> rear;
-    private int size;
+    int size;
     
     public FilaEncadeada() {
         front = null;

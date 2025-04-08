@@ -1,4 +1,5 @@
 package BATTLES;
+
 public abstract class Entidade {
     protected String nome;
     protected int nivel;
@@ -16,6 +17,16 @@ public abstract class Entidade {
         this.manaAtual = manaMaxima;
     }
     
+    // Adicione este novo método
+    public void subirNivel() {
+        nivel++;
+        vidaMaxima += 5;  // Valor base para todas as entidades
+        manaMaxima += 2;  // Valor base para todas as entidades
+        vidaAtual = vidaMaxima;
+        manaAtual = manaMaxima;
+    }
+    
+    // Outros métodos da Entidade...
     public abstract void atacar(Entidade alvo);
     
     public void receberDano(int dano) {
@@ -31,55 +42,14 @@ public abstract class Entidade {
     public boolean estaVivo() {
         return vidaAtual > 0;
     }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public int getNivel() {
-        return nivel;
-    }
-
-    public int getVidaMaxima() {
-        return vidaMaxima;
-    }
-
-    public int getVidaAtual() {
-        return vidaAtual;
-    }
-
-    public int getManaMaxima() {
-        return manaMaxima;
-    }
-
-    public int getManaAtual() {
-        return manaAtual;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
-    }
-
-    public void setVidaMaxima(int vidaMaxima) {
-        this.vidaMaxima = vidaMaxima;
-    }
-
-    public void setVidaAtual(int vidaAtual) {
-        this.vidaAtual = vidaAtual;
-    }
-
-    public void setManaMaxima(int manaMaxima) {
-        this.manaMaxima = manaMaxima;
-    }
-
-    public void setManaAtual(int manaAtual) {
-        this.manaAtual = manaAtual;
-    }
-
     
-    
+    // Getters e Setters...
+    public String getNome() { return nome; }
+    public int getNivel() { return nivel; }
+    public int getVidaMaxima() { return vidaMaxima; }
+    public int getVidaAtual() { return vidaAtual; }
+    public int getManaMaxima() { return manaMaxima; }
+    public int getManaAtual() { return manaAtual; }
+    public void setVidaAtual(int vidaAtual) { this.vidaAtual = vidaAtual; }
+    public void setManaAtual(int manaAtual) { this.manaAtual = manaAtual; }
 }

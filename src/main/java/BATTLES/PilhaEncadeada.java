@@ -10,6 +10,10 @@ public class PilhaEncadeada<T> {
         top = null;
         size = 0;
     }
+
+    public int size(){
+        return size;
+    }
     
     public void push(T data) {
         Node<T> newNode = new Node<>(data);

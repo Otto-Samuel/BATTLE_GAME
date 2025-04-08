@@ -2,7 +2,7 @@ package BATTLES;
 
 import java.util.Random;
 import java.util.Scanner;
-import java.util.NoSuchElementException;
+//import java.util.NoSuchElementException;
 
 public class Arena {
     private FilaEncadeada<Entidade> ordemTurnos;
