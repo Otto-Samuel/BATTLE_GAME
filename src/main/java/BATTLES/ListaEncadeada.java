@@ -33,6 +33,8 @@ public class ListaEncadeada<T> {
         }
         return current.data;
     }
-    
-    // Outros métodos: remover, tamanho, etc.
+   
+    public int tamanho(){
+        return size;
+    }
 }

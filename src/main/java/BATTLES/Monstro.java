@@ -1,3 +1,4 @@
+package BATTLES;
 public class Monstro extends Entidade{
     private int experienciaConcedida;
     

@@ -1,4 +1,4 @@
-import invent.Inventario;
+package BATTLES;
 
 public class Personagem extends Entidade{
     private ListaEncadeada<Habilidade> habilidades;
