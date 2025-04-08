@@ -1,6 +1,7 @@
 package BATTLES;
 
 import java.util.Random;
+import java.util.Scanner;
 import java.util.NoSuchElementException;
 
 public class Arena {

@@ -41,4 +41,8 @@ public class FilaEncadeada<T> {
     public boolean isEmpty() {
         return front == null;
     }
+
+    public int size(){
+        return size;
+    }
 }

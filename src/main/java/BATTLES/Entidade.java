@@ -31,5 +31,55 @@ public abstract class Entidade {
     public boolean estaVivo() {
         return vidaAtual > 0;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public int getVidaMaxima() {
+        return vidaMaxima;
+    }
+
+    public int getVidaAtual() {
+        return vidaAtual;
+    }
+
+    public int getManaMaxima() {
+        return manaMaxima;
+    }
+
+    public int getManaAtual() {
+        return manaAtual;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public void setVidaMaxima(int vidaMaxima) {
+        this.vidaMaxima = vidaMaxima;
+    }
+
+    public void setVidaAtual(int vidaAtual) {
+        this.vidaAtual = vidaAtual;
+    }
+
+    public void setManaMaxima(int manaMaxima) {
+        this.manaMaxima = manaMaxima;
+    }
+
+    public void setManaAtual(int manaAtual) {
+        this.manaAtual = manaAtual;
+    }
+
+    
     
 }
