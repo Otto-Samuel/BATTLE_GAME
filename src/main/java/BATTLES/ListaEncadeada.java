@@ -1,10 +1,11 @@
 package BATTLES;
 
+import java.util.function.Predicate;
+
 public class ListaEncadeada<T> {
     private Node<T> head;
     private int size;
     
-    // Classe Node interna
     private static class Node<T> {
         T data;
         Node<T> next;
@@ -20,59 +21,6 @@ public class ListaEncadeada<T> {
         size = 0;
     }
     
-    // Método remover por índice
-    public T remover(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Índice inválido: " + index);
-        }
-        
-        // Caso especial: remover o primeiro elemento
-        if (index == 0) {
-            T dadoRemovido = head.data;
-            head = head.next;
-            size--;
-            return dadoRemovido;
-        }
-        
-        // Para outros índices
-        Node<T> anterior = head;
-        for (int i = 0; i < index - 1; i++) {
-            anterior = anterior.next;
-        }
-        
-        T dadoRemovido = anterior.next.data;
-        anterior.next = anterior.next.next;
-        size--;
-        
-        return dadoRemovido;
-    }
-    
-    // Método remover por objeto (remove a primeira ocorrência)
-    public boolean remover(T dado) {
-        if (head == null) return false;
-        
-        // Caso especial: remover o primeiro elemento
-        if (head.data.equals(dado)) {
-            head = head.next;
-            size--;
-            return true;
-        }
-        
-        Node<T> atual = head;
-        while (atual.next != null && !atual.next.data.equals(dado)) {
-            atual = atual.next;
-        }
-        
-        if (atual.next != null) {
-            atual.next = atual.next.next;
-            size--;
-            return true;
-        }
-        
-        return false;
-    }
-    
-    // Outros métodos da lista...
     public void adicionar(T data) {
         Node<T> newNode = new Node<>(data);
         if (head == null) {
@@ -86,7 +34,65 @@ public class ListaEncadeada<T> {
         }
         size++;
     }
+
+    public T remover(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Índice inválido: " + index);
+        }
+
+        if (index == 0) {
+            T dadoRemovido = head.data;
+            head = head.next;
+            size--;
+            return dadoRemovido;
+        }
+        
+        Node<T> anterior = head;
+        for (int i = 0; i < index - 1; i++) {
+            anterior = anterior.next;
+        }
+        
+        T dadoRemovido = anterior.next.data;
+        anterior.next = anterior.next.next;
+        size--;
+        
+        return dadoRemovido;
+    }
     
+    public boolean remover(T data) {
+        if (head == null) return false;
+
+        if (head.data.equals(data)) {
+            head = head.next;
+            size--;
+            return true;
+        }
+        
+        Node<T> current = head;
+        while (current.next != null && !current.next.data.equals(data)) {
+            current = current.next;
+        }
+        
+        if (current.next != null) {
+            current.next = current.next.next;
+            size--;
+            return true;
+        }
+        
+        return false;
+    }
+
+    public T buscar(Predicate<T> criterio) {
+        Node<T> current = head;
+        while (current != null) {
+            if (criterio.test(current.data)) {
+                return current.data;
+            }
+            current = current.next;
+        }
+        return null;
+    }
+
     public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
@@ -97,12 +103,23 @@ public class ListaEncadeada<T> {
         }
         return current.data;
     }
-    
+
     public int tamanho() {
         return size;
     }
-    
+
     public boolean estaVazia() {
         return size == 0;
+    }
+
+    public boolean contem(T data) {
+        Node<T> current = head;
+        while (current != null) {
+            if (current.data.equals(data)) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
     }
 }

@@ -2,18 +2,23 @@ package BATTLES;
 
 public class Personagem extends Entidade {
     private ListaEncadeada<Habilidade> habilidades;
-    private ListaEncadeada<Item> inventario;
+    private Inventario inventario; 
+    private int danoExtra;
     private int experienciaAtual;
     private int experienciaParaProximoNivel;
-    private Jogador jogador;  // Adicionando a referência ao Jogador
+    private Jogador jogador;
     
     public Personagem(String nome, int nivel, int vidaMaxima, int manaMaxima, Jogador jogador) {
         super(nome, nivel, vidaMaxima, manaMaxima);
         this.habilidades = new ListaEncadeada<>();
-        this.inventario = new ListaEncadeada<>();
+        this.inventario = new Inventario(20);
         this.experienciaAtual = 0;
         this.experienciaParaProximoNivel = calcularExperienciaParaProximoNivel();
-        this.jogador = jogador;  // Inicializando a referência
+        this.jogador = jogador;
+        this.danoExtra = 0;
+        
+        habilidades.adicionar(new Habilidade(1, "Ataque Básico", "Um ataque simples", 0, 10, 1));
+        habilidades.adicionar(new Habilidade(2, "Cura Leve", "Recupera um pouco de HP", 15, 20, 2));
     }
     
     private int calcularExperienciaParaProximoNivel() {
@@ -26,18 +31,16 @@ public class Personagem extends Entidade {
         
         while (this.experienciaAtual >= this.experienciaParaProximoNivel) {
             this.experienciaAtual -= this.experienciaParaProximoNivel;
-            subirNivel();  // Chama o método da classe pai e depois adiciona comportamentos extras
+            subirNivel();
             this.experienciaParaProximoNivel = calcularExperienciaParaProximoNivel();
         }
     }
     
     @Override
     public void subirNivel() {
-        super.subirNivel();  // Chama a implementação da classe Entidade
-        
-        // Melhorias adicionais específicas para Personagem
-        vidaMaxima += 5;  // Personagens ganham mais vida que entidades comuns
-        manaMaxima += 3;  // Personagens ganham mais mana que entidades comuns
+        super.subirNivel();
+        vidaMaxima += 10;
+        manaMaxima += 5;
         vidaAtual = vidaMaxima;
         manaAtual = manaMaxima;
         
@@ -45,10 +48,9 @@ public class Personagem extends Entidade {
         System.out.println("Atributos aumentados: Vida=" + vidaMaxima + ", Mana=" + manaMaxima);
     }
     
-    // Restante dos métodos permanecem iguais...
     @Override
     public void atacar(Entidade alvo) {
-        int dano = nivel * 2;
+        int dano = nivel * 2 + danoExtra;
         alvo.receberDano(dano);
         System.out.println(this.nome + " atacou " + alvo.getNome() + " causando " + dano + " de dano!");
     }
@@ -57,30 +59,40 @@ public class Personagem extends Entidade {
         if (manaAtual >= habilidade.getCustoMana()) {
             manaAtual -= habilidade.getCustoMana();
             habilidade.usar(this, alvo);
+            System.out.println(this.nome + " usou " + habilidade.getNome() + " em " + alvo.getNome() + "!");
         } else {
             System.out.println("Mana insuficiente para usar " + habilidade.getNome() + "!");
         }
     }
-
-    // Getters e Setters...
+    
+    public void usarItem(int indexItem, Entidade alvo) {
+        if (indexItem >= 0 && indexItem < inventario.getItens().tamanho()) {
+            Item item = inventario.getItens().get(indexItem);
+            item.usar(this, alvo);
+            
+            if (item.getQuantidade() <= 0) {
+                inventario.removerItem(item.getId());
+            }
+        } else {
+            System.out.println("Item inválido!");
+        }
+    }
+    
+    public void aprenderHabilidade(Habilidade novaHabilidade) {
+        habilidades.adicionar(novaHabilidade);
+        System.out.println(this.nome + " aprendeu a habilidade " + novaHabilidade.getNome() + "!");
+    }
+    
     public ListaEncadeada<Habilidade> getHabilidades() {
         return habilidades;
     }
-
-    public Jogador getJogador() {
-        return jogador;
-    }
-
-    public void setHabilidades(ListaEncadeada<Habilidade> habilidades) {
-        this.habilidades = habilidades;
-    }
-
-    public ListaEncadeada<Item> getInventario() {
+    
+    public Inventario getInventario() {
         return inventario;
     }
-
-    public void setInventario(ListaEncadeada<Item> inventario) {
-        this.inventario = inventario;
+    
+    public Jogador getJogador() {
+        return jogador;
     }
     
     public int getExperienciaAtual() {
@@ -89,5 +101,22 @@ public class Personagem extends Entidade {
     
     public int getExperienciaParaProximoNivel() {
         return experienciaParaProximoNivel;
+    }
+    
+    public int getDanoExtra() {
+        return danoExtra;
+    }
+    
+    public void setDanoExtra(int danoExtra) {
+        this.danoExtra = danoExtra;
+    }
+    
+    public void exibirStatus() {
+        System.out.println("\n=== Status de " + nome + " ===");
+        System.out.println("Nível: " + nivel);
+        System.out.println("HP: " + vidaAtual + "/" + vidaMaxima);
+        System.out.println("MP: " + manaAtual + "/" + manaMaxima);
+        System.out.println("EXP: " + experienciaAtual + "/" + experienciaParaProximoNivel);
+        System.out.println("Dano Extra: +" + danoExtra);
     }
 }

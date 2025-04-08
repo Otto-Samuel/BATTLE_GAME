@@ -15,11 +15,9 @@ public class Monstro extends Entidade {
         System.out.println(this.nome + " atacou " + alvo.getNome() + " causando " + dano + " de dano!");
     }
     
-    // Monstros podem ter uma implementação diferente de subirNivel se necessário
     @Override
     public void subirNivel() {
         super.subirNivel();
-        // Monstros podem ganhar menos atributos ao subir de nível
         vidaMaxima += 3;
         manaMaxima += 1;
         vidaAtual = vidaMaxima;

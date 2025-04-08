@@ -4,8 +4,8 @@ public class Item {
     private int id;
     private String nome;
     private String descricao;
-    private int tipo; // 1 = consumível, 2 = equipamento, 3 = chave, etc.
-    private int efeito; // valor do efeito (cura, dano, etc.)
+    private int tipo;
+    private int efeito;
     private int quantidade;
     
     public Item(int id, String nome, String descricao, int tipo, int efeito, int quantidade) {
@@ -17,29 +17,22 @@ public class Item {
         this.quantidade = quantidade;
     }
     
-    public void usar(Entidade usuario, Entidade alvo) {
-        if (quantidade > 0) {
-            quantidade--;
-            
-            switch (tipo) {
-                case 1: // Consumível (poção de cura)
-                    alvo.curar(efeito);
-                    System.out.println(usuario.getNome() + " usou " + nome + " em " + alvo.getNome() + " curando " + efeito + " de HP!");
-                    break;
-                case 2: // Equipamento
-                    // Lógica de equipar
-                    System.out.println(usuario.getNome() + " equipou " + nome + "!");
-                    break;
-                case 3: // Ofensivo (bomba, etc.)
-                    alvo.receberDano(efeito);
-                    System.out.println(usuario.getNome() + " usou " + nome + " em " + alvo.getNome() + " causando " + efeito + " de dano!");
-                    break;
-                default:
-                    System.out.println("Tipo de item desconhecido!");
-            }
-        } else {
-            System.out.println("Não há mais " + nome + " no inventário!");
+    public void usar(Personagem usuario, Entidade alvo) {
+        if (quantidade <= 0) return;
+        
+        switch (tipo) {
+            case 1:
+                alvo.curar(efeito);
+                System.out.println(usuario.getNome() + " usou " + nome + " em " + 
+                                 alvo.getNome() + " restaurando " + efeito + " HP!");
+                break;
+            case 2:
+                usuario.setDanoExtra(efeito);
+                System.out.println(usuario.getNome() + " equipou " + nome + 
+                                 " (+" + efeito + " de dano)");
+                break;
         }
+        quantidade--;
     }
 
     public int getId() { return id; }

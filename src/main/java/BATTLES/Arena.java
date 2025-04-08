@@ -24,7 +24,6 @@ public class Arena {
     public void iniciarBatalha(ListaEncadeada<Entidade> participantes) {
         this.participantes = participantes;
         
-        // Adiciona todos os participantes vivos na fila de turnos
         for (int i = 0; i < participantes.tamanho(); i++) {
             Entidade e = participantes.get(i);
             if (e.estaVivo()) {
@@ -105,17 +104,13 @@ public class Arena {
             switch (opcao) {
                 case 1:
                     jogador.atacar(alvo);
-                    System.out.println(jogador.getNome() + " atacou " + alvo.getNome() + "!");
                     break;
-                    
                 case 2:
                     usarHabilidade(jogador, alvo);
                     break;
-                    
                 case 3:
-                    System.out.println("Itens ainda não implementados!");
+                    usarItem(jogador, alvo);
                     break;
-                    
                 case 4:
                     System.out.println(jogador.getNome() + " está se defendendo!");
                     jogador.curar(5);
@@ -123,11 +118,30 @@ public class Arena {
             }
             
             verificarDerrota(jogador, alvo);
-            
         } catch (InputMismatchException e) {
             System.out.println("Entrada inválida! Perdeu o turno.");
-            scanner.nextLine(); // Limpar buffer
+            scanner.nextLine();
         }
+    }
+
+    private void usarItem(Personagem jogador, Entidade alvo) {
+        if (jogador.getInventario().getItens().tamanho() == 0) {
+            System.out.println("Você não tem itens no inventário!");
+            return;
+        }
+        
+        System.out.println("\nItens disponíveis:");
+        for (int i = 0; i < jogador.getInventario().getItens().tamanho(); i++) {
+            Item item = jogador.getInventario().getItens().get(i);
+            System.out.println((i+1) + ". " + item.getNome() + 
+                             " (" + item.getDescricao() + 
+                             ") x" + item.getQuantidade());
+        }
+        
+        System.out.print("Escolha um item: ");
+        int itemIndex = lerOpcao(1, jogador.getInventario().getItens().tamanho()) - 1;
+        
+        jogador.usarItem(itemIndex, alvo);
     }
     
     private int lerOpcao(int min, int max) {
@@ -296,11 +310,15 @@ public class Arena {
         }
     }
     
-    public void finalizar() {
+public void finalizar() {
+    try {
         if (scanner != null) {
             scanner.close();
         }
+    } catch (Exception e) {
+        System.err.println("Erro ao fechar scanner: " + e.getMessage());
     }
+}
     
     public boolean isEmAndamento() {
         return emAndamento;

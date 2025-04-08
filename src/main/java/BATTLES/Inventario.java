@@ -14,30 +14,25 @@ public class Inventario {
             System.out.println("Inventário cheio! Não foi possível adicionar " + item.getNome());
             return false;
         }
-
-        for (int i = 0; i < itens.tamanho(); i++) {
-            Item itemExistente = itens.get(i);
-            if (itemExistente.getId() == item.getId()) {
-                itemExistente.setQuantidade(itemExistente.getQuantidade() + item.getQuantidade());
-                return true;
-            }
+        
+        Item existente = buscarItem(item.getId());
+        if (existente != null) {
+            existente.setQuantidade(existente.getQuantidade() + item.getQuantidade());
+        } else {
+            itens.adicionar(item);
         }
-
-        itens.adicionar(item);
         return true;
     }
     
     public boolean removerItem(int idItem) {
-        for (int i = 0; i < itens.tamanho(); i++) {
-            Item item = itens.get(i);
-            if (item.getId() == idItem) {
-                if (item.getQuantidade() > 1) {
-                    item.setQuantidade(item.getQuantidade() - 1);
-                } else {
-                    itens.remover(i);
-                }
-                return true;
+        Item item = buscarItem(idItem);
+        if (item != null) {
+            if (item.getQuantidade() > 1) {
+                item.setQuantidade(item.getQuantidade() - 1);
+            } else {
+                itens.remover(item);
             }
+            return true;
         }
         return false;
     }
@@ -58,7 +53,7 @@ public class Inventario {
             return;
         }
         
-        System.out.println("=== Itens no Inventário ===");
+        System.out.println("\n=== Itens no Inventário ===");
         for (int i = 0; i < itens.tamanho(); i++) {
             Item item = itens.get(i);
             System.out.println((i+1) + ". " + item.getNome() + 
@@ -66,7 +61,12 @@ public class Inventario {
                              item.getDescricao());
         }
     }
-
-    public ListaEncadeada<Item> getItens() { return itens; }
-    public int getCapacidadeMaxima() { return capacidadeMaxima; }
+    
+    public ListaEncadeada<Item> getItens() {
+        return itens;
+    }
+    
+    public int getCapacidadeMaxima() {
+        return capacidadeMaxima;
+    }
 }
