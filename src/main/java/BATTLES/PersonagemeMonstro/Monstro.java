@@ -1,4 +1,4 @@
-package BATTLES;
+package BATTLES.PersonagemeMonstro;
 
 public class Monstro extends Entidade {
     private int experienciaConcedida;

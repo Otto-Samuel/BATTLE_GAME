@@ -1,5 +1,5 @@
 package BATTLES;
-
+import BATTLES.PersonagemeMonstro.*;
 public class Item {
     private int id;
     private String nome;
