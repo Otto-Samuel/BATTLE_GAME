@@ -1,5 +1,3 @@
-package BATTLES;
-
 public abstract class Entidade {
     protected String nome;
     protected int nivel;

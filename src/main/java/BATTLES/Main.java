@@ -5,7 +5,7 @@ import java.util.Scanner;
 /*
  * @autor: Otto Samuel Monteiro Rego
  * @data: 09/04/2025
- * MIT LICENSE
+ * @license: MIT LICENSE
  */
 
 public class Main {
