@@ -1,7 +1,13 @@
-package BATTLES;
+package BATTLES.Arena;
 
 import java.util.Random;
 import java.util.Scanner;
+
+import BATTLES.FilaEncadeada;
+import BATTLES.Item;
+import BATTLES.ListaEncadeada;
+import BATTLES.PilhaEncadeada;
+
 import java.util.InputMismatchException;
 
 public class Arena {

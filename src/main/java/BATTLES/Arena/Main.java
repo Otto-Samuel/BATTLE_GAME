@@ -1,4 +1,4 @@
-package BATTLES;
+package BATTLES.Arena;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -7,6 +7,10 @@ import java.util.Scanner;
  * @data: 09/04/2025
  * @license: MIT LICENSE
  */
+
+import BATTLES.Item;
+import BATTLES.ListaEncadeada;
+import BATTLES.SistemaAutenticacao;
 
 public class Main {
     private static SistemaAutenticacao sistema = new SistemaAutenticacao();
