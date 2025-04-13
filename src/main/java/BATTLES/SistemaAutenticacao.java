@@ -42,4 +42,8 @@ public class SistemaAutenticacao {
         }
         return false;
     }
+    
+    public ListaEncadeada<Jogador> getJogadores() {
+        return jogadores;
+    }
 }

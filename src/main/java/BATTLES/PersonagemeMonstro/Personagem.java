@@ -107,6 +107,10 @@ public class Personagem extends Entidade {
         return experienciaParaProximoNivel;
     }
     
+    public double getPorcentagemExperiencia() {
+        return ((double) experienciaAtual / experienciaParaProximoNivel) * 100;
+    }
+    
     public int getDanoExtra() {
         return danoExtra;
     }
@@ -117,7 +121,7 @@ public class Personagem extends Entidade {
     
     public void exibirStatus() {
         System.out.println("\n=== Status de " + nome + " ===");
-        System.out.println("Nível: " + nivel);
+        System.out.printf("Nível: %d (%.1f%%)%n", nivel, getPorcentagemExperiencia());
         System.out.println("HP: " + vidaAtual + "/" + vidaMaxima);
         System.out.println("MP: " + manaAtual + "/" + manaMaxima);
         System.out.println("EXP: " + experienciaAtual + "/" + experienciaParaProximoNivel);

@@ -3,7 +3,7 @@ package BATTLES.Arena;
 import java.util.Random;
 import java.util.Scanner;
 /*
- * @autor: Otto Samuel Monteiro Rego
+ * @autor: Otto , Dario, Renato, tiagoFerreira 
  * @data: 09/04/2025
  * @license: MIT LICENSE
  */
@@ -14,6 +14,7 @@ import BATTLES.InventarioeItem.Item;
 import BATTLES.PersonagemeMonstro.Entidade;
 import BATTLES.PersonagemeMonstro.Jogador;
 import BATTLES.PersonagemeMonstro.Monstro;
+import BATTLES.PersonagemeMonstro.Personagem;
 
 public class Main {
     private static SistemaAutenticacao sistema = new SistemaAutenticacao();
@@ -72,9 +73,11 @@ public class Main {
         String senha = scanner.nextLine();
 
         jogadorAtual = sistema.cadastrar(nome, senha);
-        System.out.println("\nCadastro realizado com sucesso!");
-        System.out.println("Criando seu primeiro personagem...");
-        criarPersonagemInicial();
+        if (jogadorAtual != null) {
+            System.out.println("\nCadastro realizado com sucesso!");
+            System.out.println("Criando seu primeiro personagem...");
+            criarPersonagemInicial();
+        }
     }
 
     private static void criarPersonagemInicial() {
@@ -89,12 +92,13 @@ public class Main {
             System.out.println("\n=== MENU DO JOGADOR ===");
             System.out.println("1. Gerenciar Personagens");
             System.out.println("2. Iniciar Batalha PvE");
-            System.out.println("3. Loja");
-            System.out.println("4. Ver Status");
-            System.out.println("5. Sair da Conta");
+            System.out.println("3. Iniciar Batalha PvP");
+            System.out.println("4. Loja");
+            System.out.println("5. Ver Status");
+            System.out.println("6. Sair da Conta");
             System.out.print("Escolha: ");
 
-            int opcao = lerInteiro(1, 5);
+            int opcao = lerInteiro(1, 6);
 
             switch (opcao) {
                 case 1:
@@ -104,12 +108,15 @@ public class Main {
                     iniciarBatalhaPVE();
                     break;
                 case 3:
-                    acessarLoja();
+                    iniciarBatalhaPVP();
                     break;
                 case 4:
-                    jogadorAtual.exibirInfo();
+                    acessarLoja();
                     break;
                 case 5:
+                    jogadorAtual.exibirInfo();
+                    break;
+                case 6:
                     jogadorAtual = null;
                     System.out.println("Desconectado com sucesso!");
                     return;
@@ -165,19 +172,19 @@ public class Main {
             return;
         }
 
-        System.out.println("\n=== PREPARAR BATALHA ===");
+        System.out.println("\n=== PREPARAR BATALHA PvE ===");
         System.out.print("Dificuldade (1-Fácil, 2-Médio, 3-Difícil): ");
         int dificuldade = lerInteiro(1, 3);
 
         ListaEncadeada<Entidade> participantes = new ListaEncadeada<>();
-        participantes.adicionar(jogadorAtual.getPersonagemAtual());
+        Personagem personagemJogador = jogadorAtual.getPersonagemAtual();
+        participantes.adicionar(personagemJogador);
 
-        // Criar monstros baseado na dificuldade !!!
         int numMonstros = dificuldade + 1;
         for (int i = 0; i < numMonstros; i++) {
             String nomeMonstro = gerarNomeMonstro();
             int nivelMonstro = dificuldade + new Random().nextInt(2);
-            int vidaMonstro = 30 + (dificuldade * 20);
+            int vidaMonstro = 20 + (dificuldade * 15);
             int expMonstro = 20 * dificuldade;
             
             participantes.adicionar(new Monstro(nomeMonstro, nivelMonstro, vidaMonstro, 0, expMonstro));
@@ -188,9 +195,128 @@ public class Main {
 
         while (arena.isEmAndamento()) {
             arena.executarTurno();
+            if (!arena.isEmAndamento()) {
+                break;
+            }
             System.out.println("\nPressione Enter para continuar...");
             scanner.nextLine();
         }
+
+         
+        if (!personagemJogador.estaVivo()) {
+            System.out.println("Você foi derrotado! Tente novamente.");
+            jogadorAtual.adicionarMoedas(10);
+            System.out.println("Ganhou 10 moedas por sua tentativa!");
+        } else {
+            int monstrosDerrotados = numMonstros - participantes.tamanho() + 1;
+            int xpGanho = 20 * dificuldade * monstrosDerrotados;
+            personagemJogador.ganharExperiencia(xpGanho);
+            System.out.println("Parabéns! Você venceu a batalha PvE, derrotando " + monstrosDerrotados + " de " + numMonstros + " monstros!");
+            jogadorAtual.adicionarMoedas(50 * dificuldade);
+            System.out.println("Ganhou " + (50 * dificuldade) + " moedas!");
+        }
+
+        arena.finalizar();
+    }
+
+    private static void iniciarBatalhaPVP() {
+        if (jogadorAtual.getPersonagemAtual() == null) {
+            System.out.println("Selecione um personagem primeiro!");
+            return;
+        }
+
+        System.out.println("\n=== PREPARAR BATALHA PvP ===");
+        System.out.println("1. Lutar contra AdminHero (personagem padrão)");
+        System.out.println("2. Escolher um personagem criado");
+        System.out.println("3. Voltar");
+        System.out.print("Escolha: ");
+
+        int opcao = lerInteiro(1, 3);
+
+        if (opcao == 3) {
+            return; 
+        }
+
+        ListaEncadeada<Entidade> participantes = new ListaEncadeada<>();
+        Personagem personagemJogador = jogadorAtual.getPersonagemAtual();
+        participantes.adicionar(personagemJogador);
+
+        Personagem adversario = null;
+
+        if (opcao == 1) {
+            
+            Jogador admin = null;
+            for (int i = 0; i < sistema.getJogadores().tamanho(); i++) {
+                if (sistema.getJogadores().get(i).getNome().equals("admin")) {
+                    admin = sistema.getJogadores().get(i);
+                    break;
+                }
+            }
+
+            if (admin == null || admin.getPersonagens().tamanho() == 0) {
+                System.out.println("Oponente padrão não disponível!");
+                return;
+            }
+
+            adversario = admin.getPersonagens().get(0);
+            if (!adversario.estaVivo()) {
+                System.out.println("AdminHero não está vivo! Reinicie o jogo para restaurar.");
+                return;
+            }
+        } else if (opcao == 2) {
+            ListaEncadeada<Personagem> personagensDisponiveis = new ListaEncadeada<>();
+            for (int i = 0; i < sistema.getJogadores().tamanho(); i++) {
+                Jogador j = sistema.getJogadores().get(i);
+                for (int k = 0; k < j.getPersonagens().tamanho(); k++) {
+                    Personagem p = j.getPersonagens().get(k);
+
+                    if (p != personagemJogador && p.estaVivo()) {
+                        personagensDisponiveis.adicionar(p);
+                    }
+                }
+            }
+
+            if (personagensDisponiveis.tamanho() == 0) {
+                System.out.println("Nenhum personagem disponível para batalha!");
+                return;
+            }
+
+            System.out.println("\nPersonagens disponíveis para batalha:");
+            for (int i = 0; i < personagensDisponiveis.tamanho(); i++) {
+                Personagem p = personagensDisponiveis.get(i);
+                System.out.printf("%d. %s (Nível: %d (%.1f%%), HP: %d/%d)%n",
+                        i + 1, p.getNome(), p.getNivel(), p.getPorcentagemExperiencia(),
+                        p.getVidaAtual(), p.getVidaMaxima());
+            }
+            System.out.print("Escolha o adversário: ");
+            int index = lerInteiro(1, personagensDisponiveis.tamanho()) - 1;
+            adversario = personagensDisponiveis.get(index);
+        }
+
+        participantes.adicionar(adversario);
+        System.out.println("Batalha PvP: " + personagemJogador.getNome() + " vs. " + adversario.getNome() + "!");
+        Arena arena = new Arena();
+        arena.iniciarBatalha(participantes);
+
+        while (arena.isEmAndamento()) {
+            arena.executarTurno();
+            if (!arena.isEmAndamento()) {
+                break;
+            }
+            System.out.println("\nPressione Enter para continuar...");
+            scanner.nextLine();
+        }
+
+        for (int i = 0; i < participantes.tamanho(); i++) {
+            Entidade e = participantes.get(i);
+            if (e.estaVivo() && e instanceof Personagem && ((Personagem)e).getJogador() != null) {
+                ((Personagem)e).ganharExperiencia(50);
+                ((Personagem)e).getJogador().adicionarMoedas(100);
+                System.out.println(((Personagem)e).getJogador().getNome() + " venceu a batalha PvP e ganhou 100 moedas!");
+                break;
+            }
+        }
+        arena.finalizar();
     }
 
     private static String gerarNomeMonstro() {
