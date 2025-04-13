@@ -1,5 +1,7 @@
 package BATTLES;
 
+import BATTLES.EstruturaDeDados.ListaEncadeada;
+import BATTLES.PersonagemeMonstro.Jogador;
 
 public class SistemaAutenticacao {
     private ListaEncadeada<Jogador> jogadores;

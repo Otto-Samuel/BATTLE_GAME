@@ -1,6 +1,6 @@
 package BATTLES.PersonagemeMonstro;
 import java.util.UUID;
-import BATTLES.ListaEncadeada;
+import BATTLES.EstruturaDeDados.*;
 
 public class Jogador {
     private String id;

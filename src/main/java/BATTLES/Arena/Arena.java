@@ -3,15 +3,19 @@ package BATTLES.Arena;
 import java.util.Random;
 import java.util.Scanner;
 
-import BATTLES.FilaEncadeada;
-import BATTLES.Item;
-import BATTLES.ListaEncadeada;
-import BATTLES.PilhaEncadeada;
+import BATTLES.EstruturaDeDados.FilaEncadeada;
+import BATTLES.EstruturaDeDados.ListaEncadeada;
+import BATTLES.EstruturaDeDados.PilhaEncadeada;
+import BATTLES.InventarioeItem.Item;
+import BATTLES.PersonagemeMonstro.Entidade;
+import BATTLES.PersonagemeMonstro.Habilidade;
+import BATTLES.PersonagemeMonstro.Monstro;
+import BATTLES.PersonagemeMonstro.Personagem;
 
 import java.util.InputMismatchException;
 
 public class Arena {
-    private FilaEncadeada<Entidade> ordemTurnos;
+    public FilaEncadeada<Entidade> ordemTurnos;
     private PilhaEncadeada<Entidade> eliminados;
     private ListaEncadeada<Entidade> participantes;
     private int turnoAtual;

@@ -1,4 +1,4 @@
-package BATTLES;
+package BATTLES.InventarioeItem;
 import BATTLES.PersonagemeMonstro.*;
 public class Item {
     private int id;

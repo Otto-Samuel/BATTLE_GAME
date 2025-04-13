@@ -1,5 +1,4 @@
-package BATTLES;
-
+package BATTLES.PersonagemeMonstro;
 public class Habilidade {
     private int id;
     private String nome;

@@ -1,4 +1,6 @@
-package BATTLES;
+package BATTLES.InventarioeItem;
+
+import BATTLES.EstruturaDeDados.ListaEncadeada;
 
 public class Inventario {
     private ListaEncadeada<Item> itens;

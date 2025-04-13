@@ -8,9 +8,12 @@ import java.util.Scanner;
  * @license: MIT LICENSE
  */
 
-import BATTLES.Item;
-import BATTLES.ListaEncadeada;
 import BATTLES.SistemaAutenticacao;
+import BATTLES.EstruturaDeDados.ListaEncadeada;
+import BATTLES.InventarioeItem.Item;
+import BATTLES.PersonagemeMonstro.Entidade;
+import BATTLES.PersonagemeMonstro.Jogador;
+import BATTLES.PersonagemeMonstro.Monstro;
 
 public class Main {
     private static SistemaAutenticacao sistema = new SistemaAutenticacao();
@@ -169,7 +172,7 @@ public class Main {
         ListaEncadeada<Entidade> participantes = new ListaEncadeada<>();
         participantes.adicionar(jogadorAtual.getPersonagemAtual());
 
-        // Criar monstros baseado na dificuldade
+        // Criar monstros baseado na dificuldade !!!
         int numMonstros = dificuldade + 1;
         for (int i = 0; i < numMonstros; i++) {
             String nomeMonstro = gerarNomeMonstro();

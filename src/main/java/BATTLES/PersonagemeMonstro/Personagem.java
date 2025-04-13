@@ -1,8 +1,8 @@
 package BATTLES.PersonagemeMonstro;
 
-import BATTLES.ListaEncadeada;
-import BATTLES.Inventario;
-import BATTLES.Item;
+import BATTLES.EstruturaDeDados.*;
+import BATTLES.InventarioeItem.Inventario;
+import BATTLES.InventarioeItem.Item;
 
 public class Personagem extends Entidade {
     private ListaEncadeada<Habilidade> habilidades;

@@ -1,4 +1,4 @@
-package BATTLES;
+package BATTLES.EstruturaDeDados;
 
 import java.util.NoSuchElementException;
 

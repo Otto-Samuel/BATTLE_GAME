@@ -1,4 +1,4 @@
-package BATTLES;
+package BATTLES.EstruturaDeDados;
 
 public class Node<T> {
     T data;
