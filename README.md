@@ -17,5 +17,21 @@
          <sub><b>Otto Samuel</b></sub>
        </a>
      </td>
+    <td align="center">
+       <a href="https://github.com/ElprogramadorxX">
+         <img src="https://avatars.githubusercontent.com/u/134674876?v=4" style="border-radius: 50%" width="100px;" alt="Joao Dario"/>
+         <br />
+         <sub><b>Otto Samuel</b></sub>
+       </a>
+     </td>
+    <td align="center">
+       <a href="https://github.com/ElprogramadorxX">
+         <img src="https://avatars.githubusercontent.com/u/134674876?v=4" style="border-radius: 50%" width="100px;" alt="Joao Dario"/>
+         <br />
+         <sub><b>Otto Samuel</b></sub>
+       </a>
+     </td>
+    
+
   </tr>
 </table>
