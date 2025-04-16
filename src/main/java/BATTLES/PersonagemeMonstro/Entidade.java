@@ -1,5 +1,6 @@
 package BATTLES.PersonagemeMonstro;
 
+// RENATO
 public abstract class Entidade {
     protected String nome;
     protected int nivel;

@@ -1,7 +1,7 @@
 package BATTLES.EstruturaDeDados;
 
 import java.util.NoSuchElementException;
-
+// DARIO
 public class PilhaEncadeada<T> {
     private Node<T> top;
     private int size;

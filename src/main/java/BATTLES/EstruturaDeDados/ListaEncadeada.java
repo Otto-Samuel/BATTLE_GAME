@@ -1,7 +1,7 @@
 package BATTLES.EstruturaDeDados;
 
 import java.util.function.Predicate;
-
+// DARIO
 public class ListaEncadeada<T> {
     private Node<T> head;
     private int size;

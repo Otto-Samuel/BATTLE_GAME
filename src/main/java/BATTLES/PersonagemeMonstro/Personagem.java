@@ -4,6 +4,7 @@ import BATTLES.EstruturaDeDados.*;
 import BATTLES.InventarioeItem.Inventario;
 import BATTLES.InventarioeItem.Item;
 
+// Tiago
 public class Personagem extends Entidade {
     private ListaEncadeada<Habilidade> habilidades;
     private Inventario inventario; 

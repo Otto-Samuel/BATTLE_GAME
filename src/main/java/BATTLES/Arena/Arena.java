@@ -13,6 +13,7 @@ import BATTLES.PersonagemeMonstro.Personagem;
 import java.util.Random;
 import java.util.Scanner;
 
+// Otto
 public class Arena {
     private int idBatalha;
     private ListaEncadeada<Entidade> participantes;

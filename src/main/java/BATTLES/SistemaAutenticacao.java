@@ -3,6 +3,7 @@ package BATTLES;
 import BATTLES.EstruturaDeDados.ListaEncadeada;
 import BATTLES.PersonagemeMonstro.Jogador;
 
+// Otto
 public class SistemaAutenticacao {
     private ListaEncadeada<Jogador> jogadores;
     

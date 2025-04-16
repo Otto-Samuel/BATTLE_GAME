@@ -2,6 +2,7 @@ package BATTLES.PersonagemeMonstro;
 import java.util.UUID;
 import BATTLES.EstruturaDeDados.*;
 
+// Tiago
 public class Jogador {
     private String id;
     private String nome;

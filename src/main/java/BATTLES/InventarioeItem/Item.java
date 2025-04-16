@@ -1,5 +1,6 @@
 package BATTLES.InventarioeItem;
 import BATTLES.PersonagemeMonstro.*;
+// RENATO
 public class Item {
     private int id;
     private String nome;

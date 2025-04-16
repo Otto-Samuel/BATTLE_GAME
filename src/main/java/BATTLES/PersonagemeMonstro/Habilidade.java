@@ -1,4 +1,5 @@
 package BATTLES.PersonagemeMonstro;
+// RENATO
 public class Habilidade {
     private int id;
     private String nome;

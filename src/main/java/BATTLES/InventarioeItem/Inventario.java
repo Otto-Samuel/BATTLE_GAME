@@ -2,6 +2,7 @@ package BATTLES.InventarioeItem;
 
 import BATTLES.EstruturaDeDados.ListaEncadeada;
 
+// RENATO
 public class Inventario {
     private ListaEncadeada<Item> itens;
     private int capacidadeMaxima;

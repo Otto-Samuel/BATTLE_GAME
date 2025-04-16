@@ -16,6 +16,7 @@ import BATTLES.PersonagemeMonstro.Jogador;
 import BATTLES.PersonagemeMonstro.Monstro;
 import BATTLES.PersonagemeMonstro.Personagem;
 
+// Otto
 public class Main {
     private static SistemaAutenticacao sistema = new SistemaAutenticacao();
     private static Jogador jogadorAtual = null;
