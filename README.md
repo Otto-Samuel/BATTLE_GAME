@@ -9,6 +9,10 @@
     <img src="https://skillicons.dev/icons?i=git,java,vscode" />
   </a>
 
+<p></p>
+
+>[!WARNING]
+>sempre executar o ```main.java```, pois nele que se executa tudas as classes
 
 ### ⚪ integrantes:
 <table>
