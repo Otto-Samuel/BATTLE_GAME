@@ -156,7 +156,7 @@ public class Main {
         System.out.println("Personagem " + nome + " criado com sucesso!");
     }
 
-    private static void selecionarPersonagem() {
+    private static void selecionarPersonagem() { //verifica se tem personagem
         if (jogadorAtual.getPersonagens().tamanho() == 0) {
             System.out.println("Você não tem personagens ainda!");
             return;
@@ -167,7 +167,7 @@ public class Main {
         jogadorAtual.selecionarPersonagem(index);
     }
 
-    private static void iniciarBatalhaPVE() {
+    private static void iniciarBatalhaPVE() { 
         if (jogadorAtual.getPersonagemAtual() == null) {
             System.out.println("Selecione um personagem primeiro!");
             return;
