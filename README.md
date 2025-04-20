@@ -5,6 +5,9 @@
 
 ## ⚙️ ferramentas
 
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=git,java,vscode" />
+  </a>
 
 
 ### ⚪ integrantes:
