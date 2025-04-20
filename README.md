@@ -8,7 +8,7 @@
        <a href="https://github.com/Otto-Samuel">
          <img src="https://avatars.githubusercontent.com/u/162514493?v=4" style="border-radius: 50%" width="100px;" alt="Otto Samuel"/>
          <br />
-         <sub><b>Otto Samuel</b></sub>
+         <sub><b>Otto Samuel 💻👑</b></sub>
        </a>
      </td>
     <td align="center">
