@@ -18,7 +18,7 @@
 </center>
 
 <p>
-  🔹 Gerenciamento de Personagem:
+  🪪 Gerenciamento de Personagem:
 </p>
 
 ```
@@ -30,7 +30,7 @@
 ```
 
 <p>
-  🔹 Loja:
+  🏪 Loja:
 </p>
 
 ~~~
