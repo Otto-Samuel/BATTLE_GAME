@@ -52,7 +52,7 @@ Saldo: 100 moedas
 <p></p>
 
 >[!WARNING]
->sempre executar o ```Main.java```, pois nele que se executa tudas as classes
+>sempre executar o ```Main.java```, pois nele que se executa todas as classes adjacentes
 
 ### ⚪ integrantes:
 <table>
