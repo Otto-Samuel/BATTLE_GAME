@@ -18,7 +18,7 @@
 </center>
 
 <p>
-  Gerenciamento de Personagem:
+  🔹 Gerenciamento de Personagem:
 </p>
 
 ```
@@ -29,11 +29,19 @@
 3. Voltar
 ```
 
-<center>
-  
+<p>
+  🔹 Loja:
+</p>
 
-  
-</center>
+~~~
+Saldo: 100 moedas
+
+1. Poção de Cura (30 moedas) - Restaura 30 HP
+2. Poção de Mana (20 moedas) - Restaura 20 MP
+3. Espada de Ferro (50 moedas) - +5 de dano
+4. Voltar
+~~~
+
 
 ## ⚙️ ferramentas
 
