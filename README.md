@@ -4,8 +4,16 @@
 </p>
 
 <center>
-  
-  ![Img_menu](https://github.com/Otto-Samuel/BATTLE_GAME/blob/master/src/main/resources/menu.png?raw=true)
+
+```
+=== MENU DO JOGADOR ===
+1. Gerenciar Personagens
+2. Iniciar Batalha PvE
+3. Iniciar Batalha PvP
+4. Loja
+5. Ver Status
+6. Sair da Conta
+```
   
 </center>
 
@@ -13,9 +21,17 @@
   Gerenciamento de Personagem:
 </p>
 
+```
+1. personagemTeste (Nível 1, HP: 100/100)
+
+1. Criar Novo Personagem
+2. Selecionar Personagem
+3. Voltar
+```
+
 <center>
   
-  ![Img_menu]()
+
   
 </center>
 
