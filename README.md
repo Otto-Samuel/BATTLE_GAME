@@ -2,9 +2,12 @@
 <p>
   Jogo RPG feito em Java, onde o Jogador tera de inicio um menu de Login/cadastro de Usuario, depois um Menu em que o usuario possa escolher entre: 
 </p>
-<p>
-   
-</p>
+
+<center>
+  
+  ![Img_menu](https://github.com/Otto-Samuel/BATTLE_GAME/blob/master/src/main/resources/menu.png?raw=true)
+  
+</center>
 
 ## ⚙️ ferramentas
 
