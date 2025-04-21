@@ -1,6 +1,9 @@
 ## ⚔️ BATTLE GAME
 <p>
-  Jogo RPG feito em Java, 
+  Jogo RPG feito em Java, onde o Jogador tera de inicio um menu de Login/cadastro de Usuario, depois um Menu em que o usuario possa escolher entre: 
+</p>
+<p>
+   
 </p>
 
 ## ⚙️ ferramentas
