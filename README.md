@@ -15,7 +15,7 @@
 <p></p>
 
 >[!WARNING]
->sempre executar o ```main.java```, pois nele que se executa tudas as classes
+>sempre executar o ```Main.java```, pois nele que se executa tudas as classes
 
 ### ⚪ integrantes:
 <table>
