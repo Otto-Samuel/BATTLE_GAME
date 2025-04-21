@@ -1,4 +1,21 @@
-## BATTLE GAME
+## ⚔️ BATTLE GAME
+<p>
+  Jogo RPG feito em Java, onde o Jogador tera de inicio um menu de Login/cadastro de Usuario, depois um Menu em que o usuario possa escolher entre: 
+</p>
+<p>
+   
+</p>
+
+## ⚙️ ferramentas
+
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=git,java,vscode" />
+  </a>
+
+<p></p>
+
+>[!WARNING]
+>sempre executar o ```main.java```, pois nele que se executa tudas as classes
 
 ### ⚪ integrantes:
 <table>
@@ -8,7 +25,7 @@
        <a href="https://github.com/Otto-Samuel">
          <img src="https://avatars.githubusercontent.com/u/162514493?v=4" style="border-radius: 50%" width="100px;" alt="Otto Samuel"/>
          <br />
-         <sub><b>Otto Samuel</b></sub>
+         <sub><b>Otto Samuel 💻👑</b></sub>
        </a>
      </td>
     <td align="center">
